@@ -17,7 +17,7 @@
         <td th:text="${lst.name}"></td>
         <td th:text="${lst.birthDate}"></td>
         <td th:text="${lst.email}"></td>
-        <td><a th:href="'/edit/form/'+lst.id">Edit</a></td>
+        <td><a th:href="${'/edit/form/'+lst.id}">Edit</a></td>
     </tr>
 </table>
 <a href="/add/form">Add</a>
