@@ -2,6 +2,9 @@ package com.example.management.service;
 
 import com.example.management.domain.Staff;
 import com.example.management.repository.StaffRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,5 +40,14 @@ public class StaffService {
 
     public List<Staff> list() {
         return repository.findAll();
+    }
+
+    public Page<Staff> listType1(PageRequest pageRequest) {
+        return repository.findAll(pageRequest);
+    }
+
+    public Slice<Staff> listType2(PageRequest pageRequest) {
+        Slice<Staff> list = repository.findAll(pageRequest);
+        return list;
     }
 }

@@ -2,11 +2,17 @@ package com.example.management.controller;
 
 import com.example.management.domain.Staff;
 import com.example.management.service.StaffService;
+import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class StaffController {
@@ -28,13 +34,35 @@ public class StaffController {
         return "staffList";
     }
 
+    private final int pageSize = 5;
+
+    // paging 1 - number type
+    @GetMapping("/list1")
+    public String staffList1(Model model, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+        if (pageNo < 0) pageNo = 0;
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+        Page<Staff> list = staffService.listType1(pageRequest);
+        model.addAttribute("list", list);
+        return "staffList1";
+    }
+
+    // paging 2 - prev / next type
+    @GetMapping("/list2")
+    public String staffList2(Model model, @RequestParam(required = false, defaultValue = "0") int pageNo) {
+        if (pageNo < 0) pageNo = 0;
+        PageRequest pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+        Slice<Staff> list = staffService.listType2(pageRequest);
+        model.addAttribute("list", list);
+        return "staffList2";
+    }
+
     @GetMapping("/add/form")
     public String staffAddForm() {
         return "staffAddForm";
     }
 
     @PostMapping("/add/form")
-    public String staffAddForm(StaffRequestForm addRequest) {
+    public String staffAddForm(@Valid StaffRequestForm addRequest) {
         Staff staff = new Staff();
         staff.setLoginId(addRequest.getLoginId());
         staff.setPassword(addRequest.getPassword());
