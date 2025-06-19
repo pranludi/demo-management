@@ -2,7 +2,7 @@ package com.example.management.controller;
 
 import java.time.LocalDate;
 
-public class StaffAddForm {
+public class StaffRequestForm {
     private String loginId;
     private String password;
     private String name;

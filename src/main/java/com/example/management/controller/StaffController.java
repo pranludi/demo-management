@@ -4,7 +4,6 @@ import com.example.management.domain.Staff;
 import com.example.management.service.StaffService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +34,13 @@ public class StaffController {
     }
 
     @PostMapping("/add/form")
-    public String staffAddForm(StaffAddForm staffAddForm) {
+    public String staffAddForm(StaffRequestForm addRequest) {
         Staff staff = new Staff();
-        staff.setLoginId(staffAddForm.getLoginId());
-        staff.setPassword(staffAddForm.getPassword());
-        staff.setName(staffAddForm.getName());
-        staff.setBirthDate(staffAddForm.getBirthDate());
-        staff.setEmail(staffAddForm.getEmail());
+        staff.setLoginId(addRequest.getLoginId());
+        staff.setPassword(addRequest.getPassword());
+        staff.setName(addRequest.getName());
+        staff.setBirthDate(addRequest.getBirthDate());
+        staff.setEmail(addRequest.getEmail());
         staffService.addStaff(staff);
         return "redirect:/list";
     }
@@ -52,6 +51,19 @@ public class StaffController {
         model.addAttribute("staffId", id);
         model.addAttribute("staff", staff);
         return "staffEditForm";
+    }
+
+    @PostMapping("/edit/form/{id}")
+    public String staffEditForm(@PathVariable Long id, StaffRequestForm editRequest) {
+        Staff staff = new Staff();
+        staff.setId(id);
+        staff.setLoginId(editRequest.getLoginId());
+        staff.setPassword(editRequest.getPassword());
+        staff.setName(editRequest.getName());
+        staff.setBirthDate(editRequest.getBirthDate());
+        staff.setEmail(editRequest.getEmail());
+        staffService.editStaff(staff);
+        return "redirect:/list";
     }
 
 

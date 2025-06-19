@@ -27,6 +27,14 @@ public class StaffService {
         return repository.save(staff);
     }
 
+    public Staff editStaff(Staff staff) {
+        if (repository.existsById(staff.getId())) {
+            return repository.save(staff);
+        } else {
+            throw new IllegalArgumentException("staff edit error");
+        }
+    }
+
     public List<Staff> list() {
         return repository.findAll();
     }
