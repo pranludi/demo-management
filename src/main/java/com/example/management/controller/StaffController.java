@@ -3,6 +3,7 @@ package com.example.management.controller;
 import com.example.management.domain.Staff;
 import com.example.management.service.StaffService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,12 @@ public class StaffController {
     @GetMapping("/")
     public String home() {
         return "index";
+    }
+
+    @GetMapping("/list")
+    public String staffList(Model model) {
+        model.addAttribute("list", staffService.list());
+        return "staffList";
     }
 
     @GetMapping("/add/form")

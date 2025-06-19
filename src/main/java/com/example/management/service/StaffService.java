@@ -4,6 +4,8 @@ import com.example.management.domain.Staff;
 import com.example.management.repository.StaffRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StaffService {
 
@@ -25,4 +27,7 @@ public class StaffService {
         return repository.save(staff);
     }
 
+    public List<Staff> list() {
+        return repository.findAll();
+    }
 }
