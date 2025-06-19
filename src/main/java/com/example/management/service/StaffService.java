@@ -47,7 +47,8 @@ public class StaffService {
     }
 
     public Slice<Staff> listType2(PageRequest pageRequest) {
-        Slice<Staff> list = repository.findAll(pageRequest);
+        Slice<Staff> list = repository.findAllByName("name01", pageRequest);
+//         Slice<Staff> list = repository.findAll(pageRequest);
         return list;
     }
 }
