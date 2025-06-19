@@ -1,21 +1,13 @@
 package com.example.management.controller;
 
-import jakarta.validation.constraints.*;
-
 import java.time.LocalDate;
 
 public class StaffRequestForm {
 
-    @NotBlank(message = "loginId is required")
-    @Size(min = 5, max = 10, message = "loginId size 5 ~ 10")
     private String loginId;
-    @NotBlank(message = "password is required")
     private String password;
-    @NotBlank(message = "name is required")
     private String name;
     private LocalDate birthDate;
-    @NotBlank(message = "email is required")
-    @Email(message = "email format id@domain")
     private String email;
 
     public String getLoginId() {
